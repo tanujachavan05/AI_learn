@@ -1,0 +1,33 @@
+{% extends 'learning/base.html' %}
+
+{% block title %}My Progress{% endblock %}
+
+{% block content %}
+<h2 style="color:#50207a;">My Learning Progress</h2>
+
+{% if progress %}
+<table class="table table-bordered mt-3">
+    <thead class="table-success">
+        <tr>
+            <th>Lesson</th>
+            <th>Completed</th>
+            <th>Score</th>
+            <th>Last Attempt</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in progress %}
+        <tr>
+            <td>{{ p.lesson.title }}</td>
+            <td>{% if p.completed %}✅{% else %}❌{% endif %}</td>
+            <td>{{ p.score }}</td>
+            <td>{{ p.last_attempt|date:"d M Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="color:crimson;">You have not started any lessons yet.</p>
+{% endif %}
+
+{% endblock %}

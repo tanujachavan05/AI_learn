@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}AI Learn{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background-image: url("{% static 'images/bg1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: linear-gradient(90deg, #414a37, #50207a);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 8px 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      .navbar-brand {
+        color: #fff !important;
+        font-weight: 600;
+      }
+      .navbar-nav .nav-link {
+        color: black !important;
+        font-weight: 500;
+        margin-left: 10px;
+        transition: all 0.3s ease;
+      }
+      .navbar-nav .nav-link:hover {
+        color: #d6b9fc !important;
+        transform: scale(1.1);
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 240px;
+        height: 100vh;
+        background: linear-gradient(180deg, #50207a, #3dbc2a6);
+        color: #fff;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        padding: 20px 0;
+        transition: all 0.4s ease;
+        box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+      }
+      .sidebar h5 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 15px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 8px;
+      }
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #f0f0f0;
+        padding: 10px 20px;
+        margin: 5px 10px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+      .sidebar-link:hover {
+        background-color: #7c4bd8;
+        color: #fff;
+        transform: translateX(5px);
+      }
+      .sidebar-link.active {
+        background-color: #3dbc2a;
+        color: #fff;
+      }
+
+      /* Content */
+      .content {
+        margin-left: 240px;
+        margin-top: 70px;
+        padding: 25px;
+        min-height: 80vh;
+        transition: all 0.4s ease;
+      }
+
+      footer {
+        background: linear-gradient(90deg, #414a37, #50207a);
+        color: #fff;
+        padding: 12px 0;
+        text-align: center;
+        font-weight: 500;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark">
+      <div class="container-fluid d-flex align-items-center">
+        <a class="navbar-brand d-flex align-items-center" href="/admin/">
+          <img
+            src="{% static 'images/admin-logo.jpg' %}"
+            alt="Admin Panel"
+            style="height: 40px; margin-right: 10px; border-radius: 5px"
+          />
+          <span>AI Learn</span>
+        </a>
+
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning:course_list' %}"
+              >Courses</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">{{ user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning:logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning:login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning:register' %}"
+              >Register</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h5 style="color: black"><b>LEARNING</b></h5>
+
+      <a
+        style="color: black"
+        href="{% url 'learning:course_list' %}"
+        class="sidebar-link"
+        >🎓 Courses</a
+      >
+      <a
+        style="color: black"
+        href="{% url 'learning:user_progress' %}"
+        class="sidebar-link"
+        >👤 My Progress</a
+      >
+      <a
+        style="color: crimson"
+        href="{% url 'learning:quiz_list' %}"
+        class="sidebar-link"
+        >❓ Quizzes</a
+      >
+
+      <!-- QUIZ BUTTON BLOCK -->
+      {% block sidebar_quiz %}{% endblock %}
+
+      <a
+        style="color: black; text-shadow: 0 0 10px #32cd32"
+        href="{% url 'learning:ai_assistant' %}"
+        class="sidebar-link"
+        ><h3>AI Assistant</h3></a
+      >
+
+      <hr style="border-color: #ddd; margin: 15px 10px" />
+
+      <a
+        style="color: black"
+        href="#"
+        class="sidebar-link active"
+        onclick="showContent('courses')"
+        >📚 List Of Courses</a
+      >
+      <a
+        style="color: hsl(240, 100%, 25%)"
+        href="#"
+        class="sidebar-link"
+        onclick="showContent('html')"
+        >🌐 HTML</a
+      >
+      <a
+        style="color: hsl(240, 100%, 25%)"
+        href="#"
+        class="sidebar-link"
+        onclick="showContent('css')"
+        >🎨 CSS</a
+      >
+      <a
+        style="color: hsl(240, 100%, 25%)"
+        href="#"
+        class="sidebar-link"
+        onclick="showContent('js')"
+        >⚡ JavaScript</a
+      >
+      <a
+        style="color: hsl(240, 100%, 25%)"
+        href="#"
+        class="sidebar-link"
+        onclick="showContent('python')"
+        >🐍 Python</a
+      >
+      <a
+        style="color: hsl(240, 100%, 25%)"
+        href="#"
+        class="sidebar-link"
+        onclick="showContent('sql')"
+        >🧮 SQL</a
+      >
+    </div>
+
+    <!-- Main Content -->
+    <div class="content" id="content-area">
+      {% block content %}
+      <h2>Welcome to AI Learn!</h2>
+      <p>Select a topic or admin option from the sidebar to begin.</p>
+      {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 AI Learn | Designed with ❤️ by Tanuja</p>
+    </footer>
+
+    <script>
+      function showContent(topic) {
+        const contentArea = document.getElementById("content-area");
+        let content = "";
+        if (topic === "html")
+          content =
+            "<h2>HTML Tutorial</h2><p>HTML structures web pages using tags.</p>";
+        if (topic === "css")
+          content =
+            "<h2>CSS Tutorial</h2><p>CSS styles and colors web pages.</p>";
+        if (topic === "js")
+          content = "<h2>JavaScript Tutorial</h2><p>JS adds interactivity.</p>";
+        if (topic === "python")
+          content =
+            "<h2>Python Tutorial</h2><p>Python powers AI, backend, and more.</p>";
+        if (topic === "sql")
+          content = "<h2>SQL Tutorial</h2><p>SQL is used for databases.</p>";
+        if (topic === "courses")
+          content = "<h2>All Courses</h2><p>List of available courses.</p>";
+        contentArea.innerHTML = content;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+{% extends 'learning/base.html' %}
+{% block title %}AI Assistant{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">🤖 AI Learning Assistant</h2>
+
+  <!-- Chat Box -->
+  <div id="chat-box" class="border rounded p-3 mb-3 bg-light" style="height: 400px; overflow-y: auto;">
+    <p><strong>AI:</strong> Hello! I’m your learning assistant. Ask me anything about HTML, CSS, JavaScript, Python, or Django!</p>
+  </div>
+
+  <!-- Input Field -->
+  <div class="input-group">
+    <input id="user-input" type="text" class="form-control" placeholder="Type your question here...">
+    <button id="send-btn" class="btn btn-primary">Send</button>
+  </div>
+</div>
+
+<!-- Chat Script -->
+<script>
+document.getElementById("send-btn").addEventListener("click", async function() {
+    const input = document.getElementById("user-input");
+    const chatBox = document.getElementById("chat-box");
+    const userMessage = input.value.trim();
+    if (!userMessage) return;
+
+    // Show user message in chat
+    chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+    input.value = "";
+
+    // Send to backend API
+    try {
+        const response = await fetch("/api/ask_ai/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: userMessage })
+        });
+
+        const data = await response.json();
+        if (data.reply) {
+            chatBox.innerHTML += `<p><strong>AI:</strong> ${data.reply}</p>`;
+        } else {
+            chatBox.innerHTML += `<p class="text-danger"><strong>AI:</strong> Sorry, something went wrong.</p>`;
+        }
+    } catch (error) {
+        chatBox.innerHTML += `<p class="text-danger"><strong>AI:</strong> Error connecting to server.</p>`;
+    }
+
+    // Scroll to bottom
+    chatBox.scrollTop = chatBox.scrollHeight;
+});
+</script>
+{% endblock %}

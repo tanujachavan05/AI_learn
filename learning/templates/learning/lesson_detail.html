@@ -1,0 +1,34 @@
+{% extends 'learning/base.html' %}
+
+{% block title %}{{ lesson.title }}{% endblock %}
+
+{% block content %}
+<div class="p-3 rounded shadow-sm" style="background: rgba(255,255,255,0.85);">
+    <h2 style="color:#50207a;">{{ lesson.title }}</h2>
+
+    <p><strong>Topic:</strong> {{ lesson.topic.title }}</p>
+    <p><strong>Course:</strong> {{ lesson.topic.course.title }}</p>
+    <hr>
+
+    <p>{{ lesson.content|linebreaks }}</p>
+
+    {% if lesson.code_example %}
+        <pre><code>{{ lesson.code_example }}</code></pre>
+    {% endif %}
+
+    <!-- Optional: Quiz button inside content -->
+    {% if quiz %}
+        <a href="{% url 'learning:quiz_question' lesson.pk %}" class="btn btn-success mt-3">
+            Take Quiz
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar_quiz %}
+    {% if quiz %}
+        <a href="{% url 'learning:quiz_question' lesson.pk %}" class="btn btn-success mt-3">
+            Take Quiz
+        </a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'learning/base.html' %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Highlight Animation Line -->
+    <div id="highlight-line" class="highlight-line"></div>
+
+    <!-- Left Sidebar: Courses, Topics + Lessons -->
+    <div class="col-md-3">
+        <h5 style="color:#50207a;">All Courses</h5>
+        <ul class="list-group mb-3">
+            {% for course_item in courses %}
+                <li class="list-group-item {% if course.slug == course_item.slug %}active{% endif %}">
+                    <a href="{% url 'learning:course_detail' course_item.slug %}" 
+                       style="text-decoration:none; color:inherit;">
+                        {{ course_item.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h5 style="color:#50207a;">Topics</h5>
+        {% if topics %}
+            <ul class="list-group">
+                {% for topic in topics %}
+                    <li class="list-group-item fw-bold" 
+                        style="background-color:#3dbc2a20; color:#333;">
+                        {{ topic.title }}
+                    </li>
+                    {% for lesson in topic.lessons.all %}
+                        <li class="list-group-item {% if selected_lesson and selected_lesson.pk == lesson.pk %}active{% endif %}">
+                            <a href="{% url 'learning:course_detail' course.slug %}?lesson={{ lesson.pk }}" 
+                               style="text-decoration:none; color:#50207a;">
+                                {{ lesson.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="color:#a00;">No topics or lessons added yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Right Content: Course Description + Selected Lesson -->
+    <div class="col-md-9">
+        <h2 style="color:#50207a;">{{ course.title }}</h2>
+        <p>{{ course.description }}</p>
+        <hr>
+
+        {% if selected_lesson %}
+            <h3 style="color:#50207a;">{{ selected_lesson.title }}</h3>
+            <p><strong>Topic:</strong> {{ selected_lesson.topic.title }}</p>
+            <p>{{ selected_lesson.content|linebreaks }}</p>
+
+            {% if selected_lesson.code_example %}
+                <pre><code>{{ selected_lesson.code_example }}</code></pre>
+            {% endif %}
+
+            {% if selected_lesson.quiz %}
+                <a href="{% url 'learning:quiz_question' selected_lesson.pk %}" 
+                   class="btn btn-success mt-3">Take Quiz</a>
+            {% endif %}
+        {% else %}
+            <p style="color:crimson;">
+                <i><u><strong>Select a lesson from the Topics section to begin.</strong></u></i>
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const line = document.getElementById("highlight-line");
+        if(line){
+            setTimeout(() => { line.classList.add("active"); }, 300);
+        }
+    });
+</script>
+{% endblock %}

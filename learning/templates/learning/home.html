@@ -1,0 +1,20 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center py-5 rounded shadow-sm" 
+     style="background: rgba(255, 255, 255, 0.8);">
+    <h1 class="mb-4" style="color:#50207a;">Welcome to AI Learn</h1>
+
+    {% if user.is_authenticated %}
+        <h5 class="mb-3">Hello, {{ user.username }} 👋</h5>
+        <a href="{% url 'learning:course_list' %}" class="btn btn-success me-2">View Courses</a>
+        <a href="{% url 'learning:logout' %}" class="btn btn-danger">Logout</a>
+    {% else %}
+        <a href="{% url 'learning:login' %}" class="btn btn-primary me-2">Login</a>
+        <a href="{% url 'learning:register' %}" class="btn btn-success">Register</a>
+    {% endif %}
+</div>
+{% endblock %}

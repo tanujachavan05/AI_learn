@@ -1,0 +1,20 @@
+[
+  {
+    "model": "learning.course",
+    "pk": 1,
+    "fields": {
+      "title": "Python Basics",
+      "description": "Learn Python from scratch",
+      "slug": "python-basics"
+    }
+  },
+  {
+    "model": "learning.course",
+    "pk": 2,
+    "fields": {
+      "title": "Django Advanced",
+      "description": "Deep dive into Django",
+      "slug": "django-advanced"
+    }
+  }
+]

@@ -1,0 +1,148 @@
+/* ========== Base Reset ========== */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f1f5f9;
+  font-family: 'Poppins', Arial, sans-serif;
+  color: #333;
+}
+
+/* Smooth transition for hover effects */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* ========== Navbar ========== */
+.navbar {
+  background: linear-gradient(90deg, #0062ff, #00b6ff);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff !important;
+}
+
+/* ========== Sidebar ========== */
+.sidebar {
+  width: 230px;
+  background: linear-gradient(180deg, #1b1b2f, #121224);
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 70px; /* space for navbar */
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar h5 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #0dcaf0;
+}
+
+/* Sidebar Links */
+.sidebar-link {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(13, 110, 253, 0.2);
+  border-left: 3px solid #0d6efd;
+  color: #fff;
+}
+
+/* Active Link */
+.sidebar-link.active {
+  background-color: rgba(13, 110, 253, 0.3);
+  border-left: 3px solid #0d6efd;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ========== Content Area ========== */
+.content {
+  margin-left: 230px;
+  padding: 35px;
+  min-height: 100vh;
+}
+
+.content h2 {
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+.content p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ========== Sidebar Toggle Button ========== */
+.sidebar-toggle {
+  position: fixed;
+  top: 80px;
+  left: 240px;
+  background: linear-gradient(90deg, #0d6efd, #00b6ff);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-toggle:hover {
+  background: linear-gradient(90deg, #00b6ff, #0d6efd);
+}
+
+/* ========== Scrollbar Styling ========== */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 3px;
+}
+
+/* ========== Responsive (Mobile) ========== */
+@media (max-width: 992px) {
+  .sidebar {
+    left: -230px;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  .sidebar-toggle {
+    display: block;
+    left: 10px;
+  }
+}
+.sidebar {
+  background-color: #222 !important;
+}
+
+.navbar {
+  background-color: #0d6efd !important;
+}

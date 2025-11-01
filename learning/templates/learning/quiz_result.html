@@ -1,0 +1,28 @@
+{% extends 'learning/base.html' %}
+
+{% block title %}Quiz Result{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-primary">{{ lesson.title }} — Quiz Result</h2>
+
+    <p>Total Questions: {{ total_questions }}</p>
+    <p>Correct Answers: {{ correct_answers }}</p>
+
+    <h4 class="mt-4">Detailed Attempts:</h4>
+    <ul class="list-group mt-2">
+        {% for attempt in attempts %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ attempt.question.text }}
+            {% if attempt.is_correct %}
+                <span class="badge bg-success">✔ Correct</span>
+            {% else %}
+                <span class="badge bg-danger">✖ Wrong</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'learning:quiz_list' %}" class="btn btn-primary mt-3">Back to Quizzes</a>
+</div>
+{% endblock %}
