@@ -30,6 +30,8 @@ Progress Tracking: Adaptive learning path based on performance.
 <img width="1024" height="768" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/1536a226-d5ea-4c7b-99a1-99d88c7dcd8b" />
 <img width="1024" height="768" alt="Screenshot (54)" src="https://github.com/user-attachments/assets/b2735a0e-f61c-4960-a272-27570818d1df" />
 
+<img width="1024" height="768" alt="Screenshot (47)" src="https://github.com/user-attachments/assets/0446160c-9385-48ea-9b99-1cc6ce4e212d" />
+
 
 Tech Stack
 Backend
