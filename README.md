@@ -24,8 +24,12 @@ Responsive Design: Built with Bootstrap for seamless experience on desktop, tabl
 
 Progress Tracking: Adaptive learning path based on performance.
 
-
+<img width="1024" height="768" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/97b7b17d-76b9-4139-b6fd-13a9d9e4809a" />
+<img width="1024" height="768" alt="Screenshot (50)" src="https://github.com/user-attachments/assets/63181e18-b570-4c31-84da-ad09db5865d0" />
+<img width="1024" height="768" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/e464d462-21f8-4efd-b88f-e2974262d4c8" />
 <img width="1024" height="768" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/1536a226-d5ea-4c7b-99a1-99d88c7dcd8b" />
+<img width="1024" height="768" alt="Screenshot (54)" src="https://github.com/user-attachments/assets/b2735a0e-f61c-4960-a272-27570818d1df" />
+
 
 Tech Stack
 Backend
